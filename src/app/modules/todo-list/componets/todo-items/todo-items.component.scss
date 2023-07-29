@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 800px;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #d8efff;
+  border-radius: 4px;;
+}
+
+.items {
+  display: flex;
+  margin-top: 12px;
+  width: 500px;
+  justify-content: space-between;
+
+  strong {
+    font-size: 16px;
+  }
+}
+
+mat-card-actions {
+  button {
+    background-color: #5fbcff;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+  }
+  
+  button:hover {
+    background-color: #165379;
+  }
+
+}
