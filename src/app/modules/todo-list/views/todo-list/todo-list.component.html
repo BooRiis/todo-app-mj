@@ -1,28 +1,61 @@
 <div class="center-items">
   <mat-card>
-    <h2>ToDo Lists</h2>
-    <div class="add-list">
+    <div class="header">
+      <h2>ToDo Lists</h2>
+      <button mat-stroked-button color="primary" (click)="onLogout()">
+        Log out
+      </button>
+    </div>
+    <form class="add-list" [formGroup]="form">
       <mat-form-field>
-        <input matInput #listTitle placeholder="Title" />
+        <input
+          formControlName="title"
+          required
+          matInput
+          #listTitle
+          placeholder="Title"
+        />
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput #listDescription placeholder="Description" />
+        <input
+          formControlName="descption"
+          matInput
+          #listDescription
+          placeholder="Description"
+        />
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Choose a date</mat-label>
-        <input matInput #listDate [min]="minDate" [formControl]="dateControl" [matDatepicker]="picker">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <input
+          formControlName="date"
+          matInput
+          #listDate
+          [min]="minDate"
+          [formControl]="dateControl"
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <div class="button-position">
-        <button mat-raised-button color="primary" (click)="onCreateTodo(listTitle.value, listDescription.value, listDate.value)">
+        <button
+          [disabled]="!form.valid"
+          mat-raised-button
+          color="primary"
+          (click)="
+            onCreateTodo(listTitle.value, listDescription.value, listDate.value)
+          "
+        >
           Create
         </button>
       </div>
-    </div>
+    </form>
     <div>
       <mat-form-field>
         <mat-label>Filter</mat-label>
@@ -35,11 +68,11 @@
     </div>
     <div>
       <app-todo-items
-       [todos]="todoList$ | async"
-       (deleteTodo)="onDelete($event)"
-       (todoStatusChanged)="onTodoStatusChanged($event.id, $event.isCompleted)"
+        [todos]="todoList$ | async"
+        (deleteTodo)="onDelete($event)"
+        (todoStatusChanged)="onTodoStatusChanged($event.id, $event.isCompleted)"
       >
-    </app-todo-items>
+      </app-todo-items>
     </div>
   </mat-card>
 </div>

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as TodosActions from './todo-list.actions';
-import { Todos, TodosState } from './todo-list.model'; // Assuming you have a root reducer named app.reducer.ts
+import { Todos, TodosState } from './todo-list.model';
 import {
-    selectTodos,
-    selectTodosError,
-    selectTodosLoading,
+  selectTodos,
+  selectTodosError,
+  selectTodosLoading,
 } from './todo-list.selectors';
+import { logout } from './todo-list.actions';
 
 @Injectable()
 export class TodoListFacade {
@@ -30,5 +31,9 @@ export class TodoListFacade {
 
   deleteTodo(id: string) {
     this.store.dispatch(TodosActions.deleteTodo({ id }));
+  }
+
+  logout(): void {
+    this.store.dispatch(logout());
   }
 }

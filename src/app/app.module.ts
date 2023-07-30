@@ -4,19 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment.development';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { BnNgIdleService } from 'bn-ng-idle';
-import { HttpClientModule } from '@angular/common/http';
-
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { LoginModule } from './modules/login/login.module';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,10 +23,14 @@ import { HttpClientModule } from '@angular/common/http';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-      logOnly: environment.production
-    })
+      logOnly: environment.production,
+    }),
+    LoginModule,
   ],
-  providers: [HttpClientModule],
-  bootstrap: [AppComponent]
+  providers: [
+    HttpClientModule,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

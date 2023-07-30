@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Todos } from './todo-list.model';
 
-
 export const loadTodos = createAction('[Todos] Load Todos');
 
 export const loadTodosSuccess = createAction(
@@ -13,7 +12,6 @@ export const loadTodosFailure = createAction(
   '[Todos] Load Todos Failure',
   props<{ error: string }>()
 );
-
 
 export const addTodo = createAction(
   '[Todos] Add Todo',
@@ -31,19 +29,19 @@ export const addTodoFailure = createAction(
 );
 
 export const updateTodo = createAction(
-    '[Todos] Update Todo',
-    props<{ id: string; isCompleted: boolean }>()
-  );
-  
-  export const updateTodoSuccess = createAction(
-    '[Todos] Update Todo Success',
-    props<{ todo: Todos }>()
-  );
-  
-  export const updateTodoFailure = createAction(
-    '[Todos] Update Todo Failure',
-    props<{ error: string }>()
-  );
+  '[Todos] Update Todo',
+  props<{ id: string; isCompleted: boolean }>()
+);
+
+export const updateTodoSuccess = createAction(
+  '[Todos] Update Todo Success',
+  props<{ todo: Todos }>()
+);
+
+export const updateTodoFailure = createAction(
+  '[Todos] Update Todo Failure',
+  props<{ error: string }>()
+);
 
 // Delete Todo
 export const deleteTodo = createAction(
@@ -60,3 +58,5 @@ export const deleteTodoFailure = createAction(
   '[Todos] Delete Todo Failure',
   props<{ error: string }>()
 );
+
+export const logout = createAction('[Auth] Logout');

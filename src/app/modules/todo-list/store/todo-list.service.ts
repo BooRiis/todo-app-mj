@@ -18,7 +18,9 @@ export class TodoListService {
   }
 
   updateTodoStatus(id: string, isCompleted: boolean): Observable<Todos> {
-    return this.http.put<Todos>(`${this.apiUrl}/api/todos/todoList/${id}`, {isCompleted});
+    return this.http.put<Todos>(`${this.apiUrl}/api/todos/todoList/${id}`, {
+      isCompleted,
+    });
   }
 
   deleteTodo(id: string): Observable<void> {

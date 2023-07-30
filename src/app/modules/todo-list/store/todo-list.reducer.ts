@@ -38,5 +38,9 @@ export const reducer = createReducer(
   on(TodosActions.deleteTodoSuccess, (state, { id }) => ({
     ...state,
     todos: state.todos.filter((t) => t.id !== id),
+  })),
+  on(TodosActions.logout, (state) => ({
+    ...state,
+    token: null,
   }))
 );

@@ -1,1 +1,5 @@
-<app-user-name-password></app-user-name-password>
+<app-user-name-password
+  [isLoggingIn]="isLoggingIn"
+  [loginError]="loginError"
+  (login)="onLogin($event)"
+></app-user-name-password>

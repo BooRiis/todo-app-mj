@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { TodoListService } from './todo-list.service';
 import * as TodosActions from './todo-list.actions';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TodoListEffects {
-    loadTodos$ = createEffect(() =>
+  loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodosActions.loadTodos),
       mergeMap(() =>
@@ -65,8 +66,21 @@ export class TodoListEffects {
     )
   );
 
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(TodosActions.logout),
+        tap(() => {
+          localStorage.removeItem('token');
+          this.router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private readonly actions$: Actions,
-    private todoListService: TodoListService
+    private todoListService: TodoListService,
+    private router: Router
   ) {}
 }

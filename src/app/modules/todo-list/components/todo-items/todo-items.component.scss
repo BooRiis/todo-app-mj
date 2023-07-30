@@ -18,6 +18,11 @@ mat-card {
   margin-top: 12px;
   width: 600px;
   justify-content: space-between;
+  align-items: center;
+
+  p {
+    width: 150px;
+  }
 
   strong {
     font-size: 16px;
@@ -33,9 +38,8 @@ mat-card-actions {
     border-radius: 5px;
     padding: 8px 16px;
   }
-  
+
   button:hover {
     background-color: #165379;
   }
-
 }
