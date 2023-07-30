@@ -66,6 +66,9 @@ MIT
 @angular/router
 MIT
 
+@mat-datetimepicker/core
+MIT
+
 @ngneat/until-destroy
 MIT
 
