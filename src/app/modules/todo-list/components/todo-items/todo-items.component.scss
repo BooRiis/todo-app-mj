@@ -21,7 +21,7 @@ mat-card {
   align-items: center;
 
   p {
-    width: 150px;
+    width: 180px;
   }
 
   strong {
@@ -37,6 +37,7 @@ mat-card-actions {
     border: none;
     border-radius: 5px;
     padding: 8px 16px;
+    margin-left: 12px;
   }
 
   button:hover {

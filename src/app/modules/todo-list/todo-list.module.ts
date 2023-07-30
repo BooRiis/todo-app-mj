@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TodoListRoutingModule } from './todo-list-routing.module';
@@ -13,7 +13,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TodoListEffects } from './store/todo-list.effects';
@@ -22,6 +22,8 @@ import { TodoListService } from './store/todo-list.service';
 import { TodoListFacade } from './store/todo-list.facade';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmActionDirective } from 'src/app/directives/confirm-action.directive';
+import { MatDatetimepickerModule } from "@mat-datetimepicker/core";
+
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import { ConfirmActionDirective } from 'src/app/directives/confirm-action.direct
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDatetimepickerModule,
     MatSelectModule,
     MatCheckboxModule,
     ReactiveFormsModule,
@@ -50,6 +53,8 @@ import { ConfirmActionDirective } from 'src/app/directives/confirm-action.direct
   providers: [
     TodoListFacade,
     TodoListService,
+    { provide: LOCALE_ID, useValue: 'en-EN' },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-EN' },
   ]
 })
 export class TodoListModule { }

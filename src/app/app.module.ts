@@ -11,6 +11,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/login/login.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatNativeDateModule,
+    MatNativeDatetimeModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({

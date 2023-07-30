@@ -50,6 +50,7 @@ export class TodoListComponent implements OnInit {
       isCompleted: false,
     };
     this.todosFacade.addTodo(todo);
+    this.form.reset()
   }
 
   onTodoStatusChanged(id: string, isCompleted: boolean) {

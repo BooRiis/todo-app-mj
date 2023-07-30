@@ -13,5 +13,5 @@ export interface Todos {
 }
 
 export enum DateFormat {
-  DATE = 'dd.MM.YYYY',
+  DATE = 'dd.MM.YYYY, hh:mm',
 }
