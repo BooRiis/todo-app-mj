@@ -12,21 +12,34 @@
 
       <mat-form-field>
         <mat-label>Choose a date</mat-label>
-        <input matInput #listDate [matDatepicker]="picker">
+        <input matInput #listDate [min]="minDate" [formControl]="dateControl" [matDatepicker]="picker">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <div class="button-position">
-        <button mat-raised-button color="primary">
+        <button mat-raised-button color="primary" (click)="onCreateTodo(listTitle.value, listDescription.value, listDate.value)">
           Create
         </button>
       </div>
     </div>
-    <div >
-      <app-todo-items></app-todo-items>
+    <div>
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <mat-select (selectionChange)="onFilterChange($event.value)">
+          <mat-option value="all">All</mat-option>
+          <mat-option value="active">Active</mat-option>
+          <mat-option value="done">Done</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-  
+    <div>
+      <app-todo-items
+       [todos]="todoList$ | async"
+       (deleteTodo)="onDelete($event)"
+       (todoStatusChanged)="onTodoStatusChanged($event.id, $event.isCompleted)"
+      >
+    </app-todo-items>
+    </div>
   </mat-card>
-
 </div>

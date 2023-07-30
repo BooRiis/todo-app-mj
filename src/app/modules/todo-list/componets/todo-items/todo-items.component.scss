@@ -1,3 +1,7 @@
+mat-card {
+  margin-bottom: 12px;
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -6,13 +10,13 @@
   justify-content: space-between;
   padding: 16px;
   background-color: #d8efff;
-  border-radius: 4px;;
+  border-radius: 4px;
 }
 
 .items {
   display: flex;
   margin-top: 12px;
-  width: 500px;
+  width: 600px;
   justify-content: space-between;
 
   strong {
