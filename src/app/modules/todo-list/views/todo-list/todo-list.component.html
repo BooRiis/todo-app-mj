@@ -47,6 +47,12 @@
       </div>
     </form>
     <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="searchControl" />
+      </mat-form-field>
+    </div>
+    <div>
       <mat-form-field>
         <mat-label>Filter</mat-label>
         <mat-select (selectionChange)="onFilterChange($event.value)">
@@ -58,7 +64,8 @@
     </div>
     <div>
       <app-todo-items
-        [todos]="todoList$ | async"
+        [todos]="filteredTodos$ | async"
+        [noResultsMessage]="noResultsMessage"
         (deleteTodo)="onDelete($event)"
         (todoStatusChanged)="onTodoStatusChanged($event.id, $event.isCompleted)"
       >

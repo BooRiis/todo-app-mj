@@ -7,7 +7,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./user-name-password.component.scss']
 })
 export class UserNamePasswordComponent implements OnInit {
-  @Input() isLoggingIn = false;
   @Input() loginError = new FormControl('');
   @Output() login: EventEmitter<{ email: string, password: string }> = new EventEmitter();
 

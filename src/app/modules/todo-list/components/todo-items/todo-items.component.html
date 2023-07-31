@@ -21,3 +21,6 @@
     </mat-card-actions>
   </div>
 </mat-card>
+<div class="not-found" *ngIf="noResultsMessage && (!todos || todos.length === 0)">
+  <h1>No matching results found.</h1>
+</div>

@@ -9,6 +9,7 @@ import { TodoListFacade } from '../../store/todo-list.facade';
 })
 export class TodoItemsComponent {
   @Input() todos: Todos[] | undefined | null;
+  @Input() noResultsMessage: boolean = false;
   @Output() deleteTodo: EventEmitter<string> = new EventEmitter<string>();
   @Output() todoStatusChanged: EventEmitter<{
     id: string;

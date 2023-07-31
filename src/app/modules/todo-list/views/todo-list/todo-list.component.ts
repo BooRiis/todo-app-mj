@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoListFacade } from '../../store/todo-list.facade';
 import { Todos } from '../../store/todo-list.model';
-import { map } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs';
 import {
   FormBuilder,
   FormControl,
@@ -18,18 +18,22 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 })
 export class TodoListComponent implements OnInit {
   dateControl = new FormControl();
+  searchControl = new FormControl();
   minDate: Date | undefined;
   form!: FormGroup;
+  noResultsMessage = false;
 
   todoList$ = this.todosFacade.todos$;
   loading$ = this.todosFacade.loading$;
+  filteredTodos$ = this.todoList$.pipe(
+    startWith([]),
+  );
 
   constructor(
     private todosFacade: TodoListFacade,
     private formBuilder: FormBuilder
   ) {
     this.minDate = new Date();
-
     this.minDate.setHours(0, 0, 0, 0);
   }
 
@@ -38,6 +42,15 @@ export class TodoListComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(4)]],
       description: [''],
       date: [''],
+      search: ['']
+    });
+
+    this.searchControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      untilDestroyed(this)
+    ).subscribe(searchTerm => {
+      this.filterTodos(searchTerm);
     });
   }
 
@@ -65,25 +78,37 @@ export class TodoListComponent implements OnInit {
     this.todosFacade.logout();
   }
 
+  filterTodos(searchTerm: string) {
+    this.filteredTodos$ = this.todoList$.pipe(
+      map(todos => {
+        if (!searchTerm) {
+          return todos;
+        } else {
+          const filteredTodos = todos.filter(todo => todo.title.toLowerCase().includes(searchTerm.toLowerCase()));
+          this.noResultsMessage = filteredTodos.length === 0;
+          return filteredTodos;
+        }
+      }),
+    );
+  }
+
   onFilterChange(filter: string) {
     switch (filter) {
       case 'all':
-        this.todoList$ = this.todosFacade.todos$;
+        this.filteredTodos$ = this.todosFacade.todos$;
         break;
       case 'active':
-        this.todoList$ = this.todosFacade.todos$.pipe(
+        this.filteredTodos$ = this.todosFacade.todos$.pipe(
           map((todos) => todos.filter((todo) => !todo.isCompleted)),
-          untilDestroyed(this)
         );
         break;
       case 'done':
-        this.todoList$ = this.todosFacade.todos$.pipe(
+        this.filteredTodos$ = this.todosFacade.todos$.pipe(
           map((todos) => todos.filter((todo) => todo.isCompleted)),
-          untilDestroyed(this)
         );
         break;
       default:
-        this.todoList$ = this.todosFacade.todos$;
+        this.filteredTodos$ = this.todosFacade.todos$;
         break;
     }
   }
